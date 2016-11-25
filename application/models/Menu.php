@@ -61,6 +61,7 @@ class Menu extends MY_Model
             $this->rest->option(CURLOPT_PORT, REST_PORT);
             return $this->rest->delete('/maintenance/code/' . $which);
     }
+    
     // Determine if a key exists
     function exists($key, $key2 = null)
     {
