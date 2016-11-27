@@ -30,18 +30,19 @@ class Menu extends MY_Model
     }
 
     // Return all records as an array of objects
+    // Return all records as an array of objects
     function all()
     {
-        $this->rest->initialize(array('server' => REST_SERVER));
-        $this->rest->option(CURLOPT_PORT, REST_PORT);
-        return $this->rest->get('/maintenance/' . $which);
+            $this->rest->initialize(array('server' => REST_SERVER));
+            $this->rest->option(CURLOPT_PORT, REST_PORT);
+            return $this->rest->get('/maintenance');
     }
     // Retrieve an existing DB record as an object
     function get($key, $key2 = null)
     {
-        $this->rest->initialize(array('server' => REST_SERVER));
-        $this->rest->option(CURLOPT_PORT, REST_PORT);
-        return $this->rest->get('/maintenance/code/' . $which);
+            $this->rest->initialize(array('server' => REST_SERVER));
+            $this->rest->option(CURLOPT_PORT, REST_PORT);
+            return $this->rest->get('/maintenance/item/id/' . $key);
     }
     // Create a new data object.
 // Only use this method if intending to create an empty record and then
@@ -59,29 +60,30 @@ class Menu extends MY_Model
     {
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            return $this->rest->delete('/maintenance/code/' . $which);
+            return $this->rest->delete('/maintenance/item/id/' . $key);
     }
-    
+
     // Determine if a key exists
     function exists($key, $key2 = null)
     {
-            $this->rest->initialize(array('server' => REST_SERVER));
-            $this->rest->option(CURLOPT_PORT, REST_PORT);
-            $result = $this->rest->get('/maintenance/code/' . $which);
-            return ! empty($result);
+        $this->db->where($this->_keyField, $key);
+        $query = $this->db->get($this->_tableName);
+        if ($query->num_rows() < 1)
+            return false;
+        return true;
     }
     // Update a record in the DB
     function update($record)
     {
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            $retrieved = $this->rest->put('/maintenance/code/' . $record['code'], $record);
+            $retrieved = $this->rest->put('/maintenance/item/id/' . $record['code'], $record);
     }
     // Add a record to the DB
     function add($record)
     {
             $this->rest->initialize(array('server' => REST_SERVER));
             $this->rest->option(CURLOPT_PORT, REST_PORT);
-            $retrieved = $this->rest->post('/maintenance/code/' . $record['code'], $record);
+            $retrieved = $this->rest->post('/maintenance/item/id/' . $record['code'], $record);
     }
 }
