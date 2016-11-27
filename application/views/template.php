@@ -11,7 +11,7 @@
         <div id="container">
             {navbar}
             {content}
-            <p class="footer">Page rendered in <strong>0.0336</strong> seconds. 
+            <p class="footer">Page rendered in <strong>0.0336</strong> seconds.
                 {ci_version}</p>
         </div>
         {caboose_scripts}
